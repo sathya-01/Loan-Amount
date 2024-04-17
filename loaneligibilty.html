@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+</head>
+<body>
+    <h2>Loan Calculator</h2>
+    <label for="salary">Monthly Salary (₹):</label>
+    <input type="number" id="salary"><br>
+    <label for="rate">Rate of Interest (R) per annum:</label>
+    <input type="number" id="rate"><br>
+    <label for="tenure">Tenure (T) in years:</label>
+    <input type="number" id="tenure"><br>
+    <button onclick="calculateLoan()">Calculate</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateLoan() {
+            var salary = parseFloat(document.getElementById("salary").value);
+            var rate = parseFloat(document.getElementById("rate").value) / 12 / 100; // Monthly interest rate
+            var tenure = parseFloat(document.getElementById("tenure").value) * 12; // Total months
+
+            // Calculate monthly installment
+            var monthlyInstallment = (salary * 0.65) - (salary * 0.65) * Math.pow(1 + rate, -tenure) / ((1 - Math.pow(1 + rate, -tenure)) / rate);
+
+            // Calculate eligible loan amount based on the monthly installment
+            var loanAmount = monthlyInstallment * (1 - Math.pow(1 + rate, -tenure)) / rate;
+
+            // Display results
+            document.getElementById("result").innerText = "Eligible Loan Amount: ₹" + loanAmount.toFixed(2) + "\nMonthly Installment: ₹" + monthlyInstallment.toFixed(2) + "\nDesigned by Sathya Jonnalagadda";
+        }
+    </script>
+</body>
+</html>
